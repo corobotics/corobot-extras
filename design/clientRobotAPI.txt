@@ -22,14 +22,10 @@ NAVTOLOC <Landmark_Name> - Performs A* search through the graph of landmarks
             to the goal given by Landmark_Name to the robot's queue of
             locations to travel to.
 
-QUERY_ARRIVE <Landmark_Name|"Map_XMap_Y"> - Checks every second to see if the
-            given value has been reached and replies with an ARRIVED message.
-
 Server/Robot Messages (in response to client commands):
 POS <X> <Y> <Theta> - The robot's current pose.
 
-ARRIVED <Landmark_Name|"Map_XMap_Y"> - The robot has arrived at the given 
-            location.
+ARRIVED - The robot has arrived at a location.
 
 OKAY - Previous message received and processed with no immediate error.
 
