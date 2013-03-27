@@ -10,9 +10,7 @@ GETPOS - Get the robot's current position (as best known by itself).
             Robot will reply with a POS message (see Robot Messages).
 
 GOTOXY <Map_X> <Map_Y> - Adds a destination (Map_X, Map_Y) to the robot's 
-            queue of locations to travel to.  Implicitly creates a 'landmark'
-            of "Map_XMap_Y" (the values as strings concatentated together)
-            which can then be used for blocking QUERY_ARRIVE messages.
+            queue of locations to travel to.
 
 GOTOLOC <Landmark_Name> - Adds a destination (x,y) to the robot's queue of
             locations to travel on after looking up Landmark_Name.
