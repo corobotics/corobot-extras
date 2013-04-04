@@ -40,7 +40,7 @@
             """Multiplies x by two."""
             return x * 2
 
-Or a more complex function:
+    Or a more complex function:
 
         def f(x, y, z):
             """Does <something complicated>.
