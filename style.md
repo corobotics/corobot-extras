@@ -3,7 +3,7 @@
 - Always use four spaces to indent.
 - Always indent a new block of code (e.g., inside a class, function, or if/for/while/etc. block).
 - Class names are always `UpperCase`.
-- Always separate operators and operands with spaces: `x + y`, NOT `x+y`.
+- Always separate operators and operands with spaces: `x + y` or `x = y`, NOT `x+y` and NOT `x=y`.
 - Never put a space between a function and its arguments: `f(x)`, NOT `f (x)` or `f( x )`.
 - Always separate function arguments with spaces: `f(a, b, c)`, NOT `f(a,b,c)`.
 - Always put a space between if/for/while/etc. statements and their expressions: `if (n == 1) {`, NOT `if(n == 1){`. They aren't functions.
@@ -34,15 +34,25 @@
 
 - Adhere to [PEP8](http://www.python.org/dev/peps/pep-0008/) in all things, especially:
 - Always name variables and functions using `lower_case_with_underscores`.
-- Use the [proper documentation style](http://www.python.org/dev/peps/pep-0257/). For example:
+- Use the [proper documentation style](http://www.python.org/dev/peps/pep-0257/). For example, a simple function:
 
-        def f(x):
-            """f does something to x and returns a list.
+        def double(x):
+            """Multiplies x by two."""
+            return x * 2
+
+Or a more complex function:
+
+        def f(x, y, z):
+            """Does <something complicated>.
             
-            x -- the value
+            x -- <describe x>
+            y -- <describe y>
+            z -- <describe z>
+            Returns <something>.
             
             """
-            return [i for i in range(x)]
+            <several lines of code>
+            return <result>
 
 # C++
 
