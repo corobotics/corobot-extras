@@ -12,6 +12,11 @@ GETPOS - Get the robot's current position (as best known by itself).
 GOTOXY <Map_X> <Map_Y> - Adds a destination (Map_X, Map_Y) to the robot's 
             queue of locations to travel to.
 
+NAVTOXY <Map_X> <Map_Y> - Performs A* search through the graph of landmarks
+            and adds the chain of landmarks from the robot's current position
+            to the landmark nearest to the goal and the goal itself 
+            to the robot's queue of locations to travel to.
+
 GOTOLOC <Landmark_Name> - Adds a destination (x,y) to the robot's queue of
             locations to travel on after looking up Landmark_Name.
 
