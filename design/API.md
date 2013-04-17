@@ -46,7 +46,7 @@ follow the best route to the destination.
 Post a message to the laptop's screen, with the option of requesting 
 confirmation of the message.
 
-**Request:**
+**Requests:**
 
     SHOW_MSG <timeout> <text>
     SHOW_MSG_CONFIRM <timeout> <text>
