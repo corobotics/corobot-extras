@@ -41,6 +41,20 @@ follow the best route to the destination.
 
     ARRIVED
 
+### Robot UI Messages
+
+Post a message to the laptop's screen, with the option of requesting 
+confirmation of the message.
+
+**Request:**
+
+    SHOW_MSG <timeout> <text>
+    SHOW_MSG_CONFIRM <timeout> <text>
+
+**Response:**
+
+    CONFIRM <bool>
+
 ### Errors
 
 Any request can also get an error response if something goes wrong:
