@@ -16,7 +16,7 @@ public class RobotMap {
      */
     private RobotMap() {
 	try {
-	    Scanner input = new Scanner(new File("../corobot_map/map/waypoints.csv"));
+	    Scanner input = new Scanner(new File("../../corobots/corobot_map/map/waypoints.csv"));
 	    String nodeline = input.nextLine(); // toss the headers of the csv
 	    nodes = new HashMap<String,MapNode>();
 	    while (input.hasNextLine()) {
