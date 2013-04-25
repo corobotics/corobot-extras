@@ -118,8 +118,10 @@ public class SimpleSim extends Thread {
      * @param y Ylocation
      */
     private int mapAt(double x, double y) {
-        int mx = (int)(x/mpp + mapW/2);
-            int my = (int)(mapH/2 - y/mpp);
+        //int mx = (int)(x/mpp + mapW/2);
+        //int my = (int)(mapH/2 - y/mpp);
+        int mx = (int)(x/mpp);
+        int my = (int)(mapH-y/mpp);
         if (mx < 0 || mx >= mapW || my < 0 || my >= mapH)
             return -1;
         return theWorld[mx][my];

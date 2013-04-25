@@ -77,9 +77,9 @@ public class GridMap extends JFrame {
      * @param rgbval New map value (RGB)
      */
     private void setRGB(double x, double y, int rgbval) {
-        int imx = (int)(x/scale + imwidth/2);
+        int imx = (int)(x/scale); // + imwidth/2);
         // flip y to go from right-handed world to left-handed image
-        int imy = (int)(imheight/2 - y/scale);
+        int imy = (int)(imheight - y/scale);
         //int rgbval = (0xff << 24) | (ival << 16) | (ival << 8) | ival;
         if (imx >= 0 && imx < imwidth && imy >= 0 && imy < imheight) {
             theMap.setRGB(imx,imy,rgbval);
@@ -104,9 +104,9 @@ public class GridMap extends JFrame {
      * @param c Color to set 
      */
     void setColorBlob(double x, double y, Color c) {
-        int cx = (int)(x/scale + imwidth/2);
+        int cx = (int)(x/scale); // + imwidth/2);
         // flip y to go from right-handed world to left-handed image
-        int cy = (int)(imheight/2 - y/scale);
+        int cy = (int)(imheight - y/scale);
 	int blobRad = 1;
 	for (int imx = cx-blobRad; imx <= cx+blobRad; imx++)
 	    for (int imy = cy-blobRad; imy <= cy+blobRad; imy++)
@@ -123,9 +123,9 @@ public class GridMap extends JFrame {
      * @param c Color to set 
      */
     void addColorBlob(double x, double y, Color c) {
-        int cx = (int)(x/scale + imwidth/2);
+        int cx = (int)(x/scale); // + imwidth/2);
         // flip y to go from right-handed world to left-handed image
-        int cy = (int)(imheight/2 - y/scale);
+        int cy = (int)(imheight - y/scale);
 	int blobRad = 1;
 	for (int imx = cx-blobRad; imx <= cx+blobRad; imx++)
 	    for (int imy = cy-blobRad; imy <= cy+blobRad; imy++)
@@ -140,9 +140,9 @@ public class GridMap extends JFrame {
      * @param y Y loc of center of area (global coords, in meters)
      */
     void eraseBlob(double x, double y) {
-        int cx = (int)(x/scale + imwidth/2);
+        int cx = (int)(x/scale); // + imwidth/2);
         // flip y to go from right-handed world to left-handed image
-        int cy = (int)(imheight/2 - y/scale);
+        int cy = (int)(imheight - y/scale);
 	int blobRad = 2;
 	for (int imx = cx-blobRad; imx <= cx+blobRad; imx++)
 	    for (int imy = cy-blobRad; imy <= cy+blobRad; imy++)
