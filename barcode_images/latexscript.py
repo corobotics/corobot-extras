@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import dircache
 #specify the source path of the images
-__file__="C:\Users\RSJ\Documents\GitHub\corobot-extras\\barcode_images"
+__file__="."
 list = dircache.listdir(__file__)
 i = 0
 check = len(list[0])
@@ -17,8 +17,10 @@ while count != 0:
       if(list[i].endswith(suffix)):
         pre="\\topskip0pt \n \\vspace*{\\fill} \n \\begingroup \n \\centerline{\\includegraphics[scale=1,width=5in,height=5in]{";
         middle=list[i];
-        post= "}} \n \\endgroup \n \\vspace*{\\fill} \n \\pagebreak \n"
-        final=''.join([pre, middle, post])
+        postimg= "}} \n \\endgroup \n \\vspace*{\\fill} \n\n \\hfill{\\small "
+        imgname=list[i][:-4]
+        post = "} \n\n \\vspace{1in} \n \\pagebreak \n"
+        final=''.join([pre, middle, postimg, imgname, post])
         print >> f1, final ,
       i=i+1
       count=count-1
