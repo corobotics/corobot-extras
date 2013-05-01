@@ -15,11 +15,11 @@ print >> f1 , "\\documentclass[letterpaper]{article} \n \\usepackage[pdftex]{gra
 
 while count != 0:
       if(list[i].endswith(suffix)):
-        pre="\\topskip0pt \n \\vspace*{\\fill} \n \\begingroup \n \\centerline{\\includegraphics[scale=1,width=5in,height=5in]{";
+        pre="\\topskip0pt \n \\vspace*{\\fill} \n \n  \\centerline{\\includegraphics[scale=1,width=6in]{text-top.png}} \n \n \\vspace{0.5in} \n \n \\begingroup \n \\centerline{\\includegraphics[scale=1,width=5in,height=5in]{";
         middle=list[i];
         postimg= "}} \n \\endgroup \n \\vspace*{\\fill} \n\n \\hfill{\\small "
         imgname=list[i][:-4]
-        post = "} \n\n \\vspace{1in} \n \\pagebreak \n"
+        post = "} \n\n  \\vspace{0.7in} \n \n \\centerline{\\includegraphics[scale=1,width=3in]{text-bottom.png}} \n \n \\pagebreak \n"
         final=''.join([pre, middle, postimg, imgname, post])
         print >> f1, final ,
       i=i+1
