@@ -19,14 +19,18 @@ Probably need only one admin account, no user accounts.
 ## Install needed packages
 
 This would include ROS and all its dependencies.
+We're sticking with ROS Fuerte, be sure to install the correct version.
+
+Perform the Desktop-Full-Install
+http://www.ros.org/wiki/fuerte/Installation/Ubuntu
+
+(Might be able to get away with Desktop-Install, untested though.)
 
 Probably also ZBar (our version of it, <https://github.com/corobotics/ZBar> )
 
 ## Install the corobot software
 
-This will probably be a git clone, at least for now.
-
-<https://github.com/corobotics/corobots>
+git clone git://github.com/corobotics/corobots.git
 
 Then run all the compilation, then installation (???)
 
