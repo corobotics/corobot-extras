@@ -30,7 +30,7 @@ Probably also ZBar (our version of it, <https://github.com/corobotics/ZBar> )
 
 ## Install the corobot software
 
-git clone git://github.com/corobotics/corobots.git
+`git clone git://github.com/corobotics/corobots.git`
 
 Then run all the compilation, then installation (???)
 
