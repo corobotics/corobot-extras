@@ -25,8 +25,8 @@ Export Params (For LibreOffice Calc's Save As "Text CSV"):
 ### Adding landmarks
 
 * Paint the new landmark in pointDataMap.xcf
-** There is a separate layer for landmark points, USE IT!
-** Use the color red.
+  * There is a separate layer for landmark points, USE IT!
+  * Use the color red.
 * Note pixel X/Y values from pointDataMap.xcf.
 * Add new row to spreadsheet and enter pixel X/Y values.
 * Drag formula for converting from pixel to meter coordinates from previous rows.
