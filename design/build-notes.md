@@ -12,6 +12,11 @@ This may well need its own document.
 
 ## Install Ubuntu
 
+On most recent hardware (Acer Aspire V5): F2 to get into BIOS.
+Under boot menu, change from UEFI to Legacy BIOS to bypass Win8
+Safe Boot.  Also move the USB CD (or whatever Ubuntu is on) up
+in the list of boot devices.
+
 At present, ROS is not supported under Ubuntu 13, so we will stick with 12.04 LTS.
 
 Probably need only one admin account, no user accounts.
