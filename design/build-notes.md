@@ -21,35 +21,9 @@ At present, ROS is not supported under Ubuntu 13, so we will stick with 12.04 LT
 
 Probably need only one admin account, no user accounts.
 
-## Install needed packages
+## Install the Corobot software
 
-This would include ROS and all its dependencies.
-We're sticking with ROS Fuerte, be sure to install the correct version.
-
-Perform the Desktop-Full-Install
-http://www.ros.org/wiki/fuerte/Installation/Ubuntu
-
-(Might be able to get away with Desktop-Install, untested though.)
-
-### Installing `zbar`
-
-Uses webcams to look for QR codes on the walls and determine the robot's position.
-
-    # Unsure whether you need xmlto, and it requires a ton of packages...
-    sudo apt-get install -y python-gtk2-dev v4l-utils gettext git xmlto
-    cd /usr/local/src
-    sudo git clone https://github.com/corobotics/ZBar.git zbar
-    cd zbar
-    sudo autoreconf --install
-    sudo ./configure --without-imagemagick
-    sudo make
-    sudo make install
-
-## Install the corobot software
-
-`git clone git://github.com/corobotics/corobots.git`
-
-Then run all the compilation, then installation (???)
+See [INSTALL.md](https://github.com/corobotics/corobots/blob/master/INSTALL.md) in the main repo.
 
 ## Set up the cameras - not tested yet
 
