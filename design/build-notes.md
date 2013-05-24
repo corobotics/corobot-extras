@@ -25,17 +25,20 @@ Probably need only one admin account, no user accounts.
 
 See [INSTALL.md](https://github.com/corobotics/corobots/blob/master/INSTALL.md) in the main repo.
 
-## Set up the cameras - not tested yet
+## Set up the cameras
 
-1. Plug in the cameras, find their serial numbers
-  (plug in each camera separately and run the following)
+1. Plug in the cameras, find their serial numbers by plugging in
+   each camera separately and running:
 
-    `udevadm info -q all -n /dev/video0`
+    `udevadm info -a -p $(udevadm info -q path -n /dev/video1)`
 
+   (Make sure you are not looking at the built-in webcam!  You may need /dev/video0 or /dev/video2 to get our cameras.)
+      
 2. Use the serial numbers to write device rules
    (more details at <http://www.reactivated.net/writing_udev_rules.html>).
    Create the file `/etc/udev/rules.d/10-video.rules` with two lines:
 
-    `SUBSYSTEM=="usb", ATTRS{serial}=="left-camera-serial-number", SYMLINK+="video0"`  
-    `SUBSYSTEM=="usb", ATTRS{serial}=="right-camera-serial-number", SYMLINK+="video1"`
+    `SUBSYSTEM=="usb", ATTRS{serial}=="left-camera-serial-number", SYMLINK+="videoleft"`  
+    `SUBSYSTEM=="usb", ATTRS{serial}=="right-camera-serial-number", SYMLINK+="videoright"`  
 
+   
