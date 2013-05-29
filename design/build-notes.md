@@ -17,7 +17,7 @@ Under boot menu, change from UEFI to Legacy BIOS to bypass Win8
 Safe Boot.  Also move the USB CD (or whatever Ubuntu is on) up
 in the list of boot devices.
 
-At present, ROS is not supported under Ubuntu 13, so we will stick with 12.04 LTS.
+We are now using Ubuntu 12.10 since that seems to support the Kinect better than 12.04 with our laptop hardware.
 
 Probably need only one admin account, no user accounts.
 
@@ -32,7 +32,7 @@ See [INSTALL.md](https://github.com/corobotics/corobots/blob/master/INSTALL.md) 
 
     `udevadm info -a -p $(udevadm info -q path -n /dev/video1)`
 
-   (Make sure you are not looking at the built-in webcam!  You may need /dev/video0 or /dev/video2 to get our cameras.)
+   (Make sure you are not looking at the built-in webcam!  You may need /dev/video0 or /dev/video2 to get our cameras.)  This will give you data about the whole USB chain, make sure you find the serial numbers for the cameras themselves.
       
 2. Use the serial numbers to write device rules
    (more details at <http://www.reactivated.net/writing_udev_rules.html>).
