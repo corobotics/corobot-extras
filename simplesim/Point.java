@@ -39,4 +39,16 @@ public class Point {
 	}
 	return "(" + nf.format(x) + "," + nf.format(y) + ")";
     }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Point)) return false;
+        Point op = (Point)(o);
+        return (op.x == x && op.y == y);
+    }
+
+    public int hashCode() {
+        // points in our app should be no bigger than 0->100 in x,y
+        // hash is xxxxyyyy
+        return ((int)(x*100))*10000 + (int)(y*100);
+    }
 }
