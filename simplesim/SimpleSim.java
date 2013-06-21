@@ -41,7 +41,7 @@ public class SimpleSim extends Thread {
     // all goals (no intermediate waypoints) w/ msgid for sending responses back to client
     private HashMap<Point,Integer> goals; 
 
-    private double rV = 0.1; // robot velocity, meters per second
+    private double rV = 0.25; // robot velocity, meters per second
     private int ticklen = 100; // simulation cycle time, millisec
 
     private long lastUpdate = 0; // time of last server update
@@ -51,7 +51,11 @@ public class SimpleSim extends Thread {
     private UserListener userListener;
 
     private String monitorText = "";
-    private boolean monitorConfirm = false, monitorConfirmed = false;
+    // monitorConfirm is used to tell the monitor to display a confirm window
+    // monitorConfirmed is set if the user confirms
+    //  confirmation timeout is dealt with by the main thread here for stability
+    //  but also sent to monitor so that it can drop its window
+    private int monitorConfirm = -1, monitorConfirmed = -1;
     private long monitorTime = 0;
 
     /**
@@ -341,6 +345,17 @@ public class SimpleSim extends Thread {
                     debugPrint("New destination " + dest);
                 }
             }
+            if (monitorConfirmed >= 0) {
+                userListener.sendMsg(monitorConfirmed + " CONFIRMED");
+                monitorConfirm = -1;
+                monitorConfirmed = -1;
+                monitorTime = 0;
+            }
+            if (monitorTime != 0 && (System.currentTimeMillis() > monitorTime)) {
+                userListener.sendMsg(monitorConfirm + " ERROR: timeout");
+                monitorTime = 0;
+                monitorConfirm = -1;
+            }
             try {
                 sleep(ticklen);
             } catch (InterruptedException e) {}
@@ -400,9 +415,11 @@ public class SimpleSim extends Thread {
                         if (msgType.equals("GETPOS")) {
                             sendMsg(msgID + " POS " + rPos.getX() + " " + rPos.getY());
                         } else if (msgType.equals("DISPLAY")) {
-                            monitorText = message;
+                            // send everything but the message id
+                            monitorText = message.substring(message.indexOf(' ')+1);
                         } else if (msgType.equals("CONFIRM")) {
-                            monitorConfirm = true;
+                            // check if it's new?  A list of requests?
+                            monitorConfirm = msgID;
                             int waiting = Integer.parseInt(parts[2]);
                             monitorTime = System.currentTimeMillis() + 1000 * waiting;
                         } else if (msgType.equals("GOTOXY")) {
@@ -450,6 +467,9 @@ public class SimpleSim extends Thread {
      */
     class MonitorListener extends Thread {
         private ServerSocket ss;
+        private BufferedReader in;
+        private boolean confirmRequested = false;
+
         public MonitorListener(ServerSocket ss) {
             this.ss = ss;
         }
@@ -465,17 +485,24 @@ public class SimpleSim extends Thread {
                     // make sure it's localhost
                     debugPrint("Obtained monitor connection");
                     PrintWriter out = new PrintWriter(s.getOutputStream());
+                    in = new BufferedReader(new InputStreamReader(s.getInputStream()));
                     while(s.isConnected()) {
                         // send position to monitor
                         out.println("POS " + rPos.getX() + " " + rPos.getY());
-                        out.println("DEST " + dest.getX() + " " + dest.getY());
+                        if (dest != null)
+                            out.println("DEST " + dest.getX() + " " + dest.getY());
                         out.flush();
                         if (monitorText != "") {
                             out.println(monitorText);
+                            out.flush();
                             monitorText = "";
                         }
-                        if (monitorConfirm) {
-                            out.println("CONFIRM"); // this needs to be asynchronous...
+                        if (monitorConfirm >= 0 && !confirmRequested) {
+                            out.println("CONFIRM " + monitorTime); 
+                            new MonitorReader(in,monitorConfirm).start();
+                            confirmRequested = true;
+                        } else if (monitorConfirm < 0 && confirmRequested) {
+                            confirmRequested = false;
                         }
                         // sleep
                         try {
@@ -489,7 +516,26 @@ public class SimpleSim extends Thread {
         }
     }
     
-
+    class MonitorReader extends Thread {
+        private BufferedReader in;
+        private int which;
+        public MonitorReader(BufferedReader in, int which) { 
+            this.in = in; 
+            this.which = which;
+        }
+        
+        public void run() {
+            // waits for one message, as such will hang unless monitor tells us it failed
+            try { 
+                String line = in.readLine();
+                if (line == null) return;
+                debugPrint("Got " + line + " from monitor.");
+                if (line.equals("CONFIRMED"))
+                    monitorConfirmed = which;
+            } catch (IOException e) { }
+        }
+    }
+    
     /**
      * Entry point
      * @param args File name for simulation parameters (optional)
