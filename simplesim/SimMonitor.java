@@ -15,7 +15,7 @@ public class SimMonitor extends JFrame implements Runnable {
     private JTextArea displayArea;
     private JOptionPane confPane;
     private JDialog dialog; // only one at a time, right?
-    private long confTime;
+    private long msgTimeout, confTime;
 
     /**
      * Constructor, opens a socket to the simulator
@@ -67,39 +67,50 @@ public class SimMonitor extends JFrame implements Runnable {
                 // ordinarily we would be worried about blocking but we are
                 // more or less guaranteed to get a POS update once per second.
 		String l = in.readLine();
-		//System.out.println(l);
 		String[] parts = l.split(" ");
+		if (!parts[0].equals("POS") && !parts[0].equals("DEST")) System.out.println(l);
 		if (parts[0].equals("POS")) {
 		    xField.setText(parts[1]);
 		    yField.setText(parts[2]);
 		} else if (parts[0].equals("DEST")) {
 		    dxField.setText(parts[1]);
 		    dyField.setText(parts[2]);
-		} else if (parts[0].equals("DISPLAY")) {
-		    for (int i = 1; i < parts.length; i++) {
+		} else if (parts[0].equals("SHOW_MSG")) {
+                    msgTimeout = System.currentTimeMillis() + 1000 * Long.valueOf(parts[1]);
+		    for (int i = 2; i < parts.length; i++) {
 			displayArea.append(parts[i] + " ");
 		    }
 		    displayArea.append("\n");
-		} else if (parts[0].equals("CONFIRM")) {
-                    displayArea.append("Requesting confirmation before " + parts[1] + "\n");
-                    confPane = new JOptionPane("Please press OK when ready.");
+		} else if (parts[0].equals("SHOW_MSG_CONFIRM")) {
+                    String msg = l.substring(l.indexOf(' ', l.indexOf(' ')+1));
+                    confPane = new JOptionPane(msg);
                     dialog = confPane.createDialog(this, "Confirmation request");
                     dialog.setVisible(true);
-                    confTime = Long.valueOf(parts[1]);
+                    confTime = System.currentTimeMillis() + 1000 * Long.valueOf(parts[1]);
                 }
                 if (dialog != null) {
-                    if (confTime < System.currentTimeMillis() || (confPane.getValue() == null)) {
-                        // null if window closed(?!)
+                    if (confTime < System.currentTimeMillis()) {
                         dialog.dispose();
                         confPane = null;
                         dialog = null;
                         out.println("TIMEOUT");
                         out.flush();
-                    }
-                    else if (confPane.getValue() != JOptionPane.UNINITIALIZED_VALUE) {
+                    } else if (confPane.getValue() == null) {
+                        // null if window closed(?!)
+                        confPane = null;
+                        dialog = null;
+                        out.println("IGNORED");
+                        out.flush();
+                    } else if (confPane.getValue() != JOptionPane.UNINITIALIZED_VALUE) {
+                        confPane = null;
+                        dialog = null;
                         out.println("CONFIRMED");
                         out.flush();
                     }
+                }
+                if (msgTimeout > 0 && msgTimeout < System.currentTimeMillis()) {
+                    displayArea.setText("");
+                    msgTimeout = 0;
                 }
 	    } catch (IOException e) {
 		displayArea.setText("Lost connection to robot");

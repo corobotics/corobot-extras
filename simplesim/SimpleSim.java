@@ -414,12 +414,13 @@ public class SimpleSim extends Thread {
                         String msgType = parts[1];
                         if (msgType.equals("GETPOS")) {
                             sendMsg(msgID + " POS " + rPos.getX() + " " + rPos.getY());
-                        } else if (msgType.equals("DISPLAY")) {
+                        } else if (msgType.equals("SHOW_MSG")) {
                             // send everything but the message id
                             monitorText = message.substring(message.indexOf(' ')+1);
-                        } else if (msgType.equals("CONFIRM")) {
+                        } else if (msgType.equals("SHOW_MSG_CONFIRM")) {
                             // check if it's new?  A list of requests?
                             monitorConfirm = msgID;
+                            monitorText = message.substring(message.indexOf(' ')+1);
                             int waiting = Integer.parseInt(parts[2]);
                             monitorTime = System.currentTimeMillis() + 1000 * waiting;
                         } else if (msgType.equals("GOTOXY")) {
