@@ -29,12 +29,19 @@ Using the Ubuntu 12.04 install on the usb stick, install ubuntu as normal.
 
 Get a usb mouse and plug it in, the touch pad shouldn't be working. In order to fix this use these commands
 `cd /tmp`
+
 `sudo mkdir kernel`
+
 `cd kernel`
+
 `sudo wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.17-rc1-utopic/linux-headers-3.17.0-031700rc1-generic_3.17.0-031700rc1.201409021903_amd64.deb`
+
 `sudo wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.17-rc1-utopic/linux-headers-3.17.0-031700rc1_3.17.0-031700rc1.201409021903_all.deb`
+
 `sudo wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v3.17-rc1-utopic/linux-image-3.17.0-031700rc1-generic_3.17.0-031700rc1.201409021903_i386.deb`
+
 `sudo dpkg -i *.deb`
+
 `sudo reboot `
 
 ###Acer Aspire V5
