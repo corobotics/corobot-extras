@@ -54,6 +54,22 @@ confirmation of the message.
 **Response:**
 
     CONFIRM <bool>
+    
+### Face Recognition
+
+Attempts to recognize faces using the head camera of the Corobot laptop.
+'FACEREC' command will wait for a recognition and return a single result, including the location.
+'LASTSEEN_n' will return the last n results. 
+
+**Requests:**
+    
+    FACEREC
+    LASTSEEN_n
+
+**Response:**
+    
+    FACEREC <subject> <confidence> <pos_x> <pos_y> 
+    LASTSEEN_n <subject> <confidence> <pos_x> <pos_y>
 
 ### Errors
 
