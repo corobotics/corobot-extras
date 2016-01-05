@@ -12,6 +12,8 @@ This may well need its own document.
 
 ## Install Ubuntu
 
+###Acer Aspire V5
+
 On most recent hardware (Acer Aspire V5): F2 to get into BIOS.
 Under boot menu, change from UEFI to Legacy BIOS to bypass Win8
 Safe Boot.  Also move the USB CD (or whatever Ubuntu is on) up
@@ -38,7 +40,15 @@ See [INSTALL.md](https://github.com/corobotics/corobots/blob/master/INSTALL.md) 
    (more details at <http://www.reactivated.net/writing_udev_rules.html>).
    Create the file `/etc/udev/rules.d/10-video.rules` with two lines:
 
-    `SUBSYSTEM=="usb", ATTRS{serial}=="left-camera-serial-number", SYMLINK+="videoleft"`  
-    `SUBSYSTEM=="usb", ATTRS{serial}=="right-camera-serial-number", SYMLINK+="videoright"`  
+    `KERNEL=="video*", ATTRS{serial}=="left-camera-serial-number", SYMLINK+="videoleft"`  
+    `KERNEL=="video*", ATTRS{serial}=="right-camera-serial-number", SYMLINK+="videoright"`  
 
+## Set up the robot connection
+
+1. Plug in the robot and find the idProduct and idVendor by running:
+    `udevadm info -a -p $(udevadm info -q path -n /dev/ttyUSB0)`
+   Make sure the information is for the serial to usb converter
+
+2. Create or modify the file `/etc/udev/rules.d/52-corobot.rules` with
+    `SUBSYSTEMS=="usb", ATTRS{idProduct}=="idProduct", ATTRS{idVendor}=="idVendor", MODE="666", GROUP="corobot"`
    
